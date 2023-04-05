@@ -8,13 +8,14 @@ const handleDomo = (e) => {
 
     const name = e.target.querySelector('#domoName').value;
     const age = e.target.querySelector('#domoAge').value;
+    const special = e.target.querySelector('#domoSpecial').checked;
 
     if(!name || !age) {
         helper.handleError('All fields are required!');
         return false;
     }
 
-    helper.sendPost(e.target.action, {name, age}, loadDomosFromServer);
+    helper.sendPost(e.target.action, {name, age, special}, loadDomosFromServer);
 
     return false;
 }
@@ -32,6 +33,8 @@ const DomoForm = (props) => {
             <input id="domoName" type="text" name="name" placeholder="Domo Name" />
             <label htmlFor="age">Age: </label>
             <input id="domoAge" type="number" min="0" name="age" />
+            <label htmlFor="special">Is Special: </label>
+            <input id="domoSpecial" type="checkbox" name="special" />
             <input className="makeDomoSubmit" type="submit" value="Make Domo" />
         </form>
     );
@@ -45,6 +48,13 @@ const DomoList = (props) => {
             </div>
         );
     }
+
+    const isSpecial = (special) => {
+        if(special === true){
+            return "Yes";
+        }
+        return "No";
+    }
     
     const domoNodes = props.domos.map(domo => {
         return(
@@ -52,6 +62,7 @@ const DomoList = (props) => {
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
                 <h3 className="domoName"> Name: {domo.name} </h3>
                 <h3 className="domoAge"> Age: {domo.age} </h3>
+                <h3 className="domoSpecial"> Special: {isSpecial(domo.special)}</h3>
             </div>
         );
     });
