@@ -43,8 +43,23 @@ const getDomos = async (req, res) => {
   }
 };
 
+const deleteDomo = async (req, res) => {
+  try {
+    db.runCommand(
+      {
+        delete: 'domos',
+        deletes: [{q: {name: req.body.name}}],
+      }
+    )
+  } catch (err){
+    console.log(err);
+    return res.status(500).json({error: 'Error deleting domo!'});
+  }
+}
+
 module.exports = {
   makerPage,
   makeDomo,
   getDomos,
+  deleteDomo,
 };

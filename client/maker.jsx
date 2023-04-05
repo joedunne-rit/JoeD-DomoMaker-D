@@ -20,6 +20,16 @@ const handleDomo = (e) => {
     return false;
 }
 
+const DeleteDomo = (e) => {
+    e.preventDefault();
+    helper.hideError();
+    
+    console.log("DeleteDomo called");
+    helper.sendPost('/delete', e.target.name, loadDomosFromServer);
+
+    return false;
+}
+
 const DomoForm = (props) => {
     return (
         <form id="domoForm"
@@ -63,6 +73,7 @@ const DomoList = (props) => {
                 <h3 className="domoName"> Name: {domo.name} </h3>
                 <h3 className="domoAge"> Age: {domo.age} </h3>
                 <h3 className="domoSpecial"> Special: {isSpecial(domo.special)}</h3>
+                <button className="delete" onclick="DeleteDomo()">Delete</button>
             </div>
         );
     });
