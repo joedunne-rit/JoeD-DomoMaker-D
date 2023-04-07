@@ -73,7 +73,7 @@ const DomoList = (props) => {
                 <h3 className="domoName"> Name: {domo.name} </h3>
                 <h3 className="domoAge"> Age: {domo.age} </h3>
                 <h3 className="domoSpecial"> Special: {isSpecial(domo.special)}</h3>
-                <button className="delete" onclick={(e)=>DeleteDomo(e, domo._id)}>Delete</button>
+                <button className="delete" onClick={(e)=>DeleteDomo(e, domo._id)}>Delete</button>
             </div>
         );
     });
@@ -88,6 +88,7 @@ const DomoList = (props) => {
 const loadDomosFromServer = async () => {
     const response = await fetch('/getDomos');
     const data = await response.json();
+    console.log('loadDomosFromServer called');
     ReactDOM.render(
         <DomoList domos={data.domos} />,
         document.getElementById('domos')
